@@ -8,8 +8,8 @@ function App() {
 
   return (
       <div>
-          {/*<Uniform />*/}
-          <Triangulate />
+          <Uniform />
+          {/*<Triangulate />*/}
       </div>
   )
 }

@@ -2,6 +2,7 @@ import {Button, Form, Input} from "antd";
 
 export function Uniform() {
     const [form] = Form.useForm();
+
     const layout = {
         labelCol: {span: 8},
         wrapperCol: {span: 16},
@@ -18,8 +19,18 @@ export function Uniform() {
     function onFinish(values: any) {
         const {a, b} = values;
 
-        const result= parseInt(a) + (parseInt(b) - parseInt(a)) * Math.random();
+        const result = parseInt(a) + (parseInt(b) - parseInt(a)) * Math.random();
         console.log(result)
+
+        const blob = new Blob([JSON.stringify(result, null, 2), '\n' + JSON.stringify(result, null, 2)], {
+            type: "application/json",
+        });
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "user-info.txt";
+        link.href = url;
+        link.click();
     }
 
     return (
