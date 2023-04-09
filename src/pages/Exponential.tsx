@@ -1,7 +1,11 @@
 import {Button, Form, Input} from "antd";
+import {useState} from "react";
+import {generateFile} from "../utils/fileGenerator";
 
 export function Exponential() {
+    const [numberOfValues, setNumberOfValues] = useState(10);
     const [form] = Form.useForm();
+
     const layout = {
         labelCol: {span: 8},
         wrapperCol: {span: 16},
@@ -16,10 +20,20 @@ export function Exponential() {
     }
 
     function onFinish(values: any) {
-        const {a, b} = values;
+        const {average} = values;
 
-        const result= parseInt(a) + (parseInt(b) - parseInt(a)) * Math.random();
-        console.log(result)
+        const fileData = [JSON.stringify(getExponentialData(parseInt(average)), null, 2)];
+
+
+        for (let i = 0; i < numberOfValues - 1; i++) {
+            fileData.push('\n' + JSON.stringify(getExponentialData(parseInt(average)), null, 2))
+        }
+
+        generateFile(fileData, 'exponential-data.txt');
+    }
+
+    function getExponentialData(average: number) {
+        return -average * Math.log(Math.random());
     }
 
     return (
@@ -31,11 +45,7 @@ export function Exponential() {
                 form={form}
                 onFinish={onFinish}
             >
-                <Form.Item name="a" label="Valor Mínimo" rules={[{required: true}]}>
-                    <Input type="number"/>
-                </Form.Item>
-
-                <Form.Item name="b" label="Valor Máximo" rules={[{required: true}]}>
+                <Form.Item name="average" label="Valor Médio" rules={[{required: true}]}>
                     <Input type="number"/>
                 </Form.Item>
 

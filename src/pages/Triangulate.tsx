@@ -1,6 +1,9 @@
 import {Button, Form, Input} from "antd";
+import {generateFile} from "../utils/fileGenerator";
+import {useState} from "react";
 
 export function Triangulate() {
+    const [numberOfValues, setNumberOfValues] = useState(10);
     const [form] = Form.useForm();
 
     const layout = {
@@ -21,22 +24,29 @@ export function Triangulate() {
         const b = parseInt(values.b);
         const c = parseInt(values.c);
 
+        const fileData = [JSON.stringify(getExponentialData(a, b, c), null, 2)];
+
+
+        for (let i = 0; i < numberOfValues - 1; i++) {
+            fileData.push('\n' + JSON.stringify(getExponentialData(a, b, c), null, 2))
+        }
+
+        generateFile(fileData, 'triangulate-data.txt');
+    }
+
+    function getExponentialData(a: number, b: number, c: number,) {
         const u = Math.random();
         const conditionValue = (c - a) / (b - a);
-
-        let result = 0;
 
         if (u < conditionValue) {
             const sqrtValue = u * (c - a) * (b - a);
 
-            result = a + Math.sqrt(sqrtValue);
+            return a + Math.sqrt(sqrtValue);
         } else {
             const sqrtValue = (1 - u) * (b - c) * (b - a);
 
-            result = a + Math.sqrt(sqrtValue);
+            return a + Math.sqrt(sqrtValue);
         }
-
-        console.log(result);
     }
 
     return (

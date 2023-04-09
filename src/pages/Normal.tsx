@@ -1,7 +1,11 @@
 import {Button, Form, Input} from "antd";
+import {generateFile} from "../utils/fileGenerator";
+import {useState} from "react";
 
 export function Normal() {
+    const [numberOfValues, setNumberOfValues] = useState(10);
     const [form] = Form.useForm();
+
     const layout = {
         labelCol: {span: 8},
         wrapperCol: {span: 16},
@@ -16,10 +20,23 @@ export function Normal() {
     }
 
     function onFinish(values: any) {
-        const {a, b} = values;
+        const {average, variance} = values;
 
-        const result= parseInt(a) + (parseInt(b) - parseInt(a)) * Math.random();
-        console.log(result)
+        const fileData = [JSON.stringify(getNormalData(parseInt(average), parseInt(variance)), null, 2)];
+
+
+        for (let i = 0; i < numberOfValues - 1; i++) {
+            fileData.push('\n' + JSON.stringify(getNormalData(parseInt(average), parseInt(variance)), null, 2))
+        }
+
+        generateFile(fileData, 'normal-data.txt');
+    }
+
+    function getNormalData(average: number, variance: number) {
+        const random = Math.random();
+        const z = Math.sqrt(-2 * Math.log(random * Math.sin(2 * Math.PI * random)))
+
+        return average + (variance * z);
     }
 
     return (
@@ -31,11 +48,11 @@ export function Normal() {
                 form={form}
                 onFinish={onFinish}
             >
-                <Form.Item name="a" label="Valor Mínimo" rules={[{required: true}]}>
+                <Form.Item name="average" label="Média" rules={[{required: true}]}>
                     <Input type="number"/>
                 </Form.Item>
 
-                <Form.Item name="b" label="Valor Máximo" rules={[{required: true}]}>
+                <Form.Item name="variance" label="Variância" rules={[{required: true}]}>
                     <Input type="number"/>
                 </Form.Item>
 
