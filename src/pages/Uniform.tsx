@@ -1,7 +1,11 @@
+import {useState} from "react";
 import {Button, Form, Input} from "antd";
+import {generateFile} from "../utils/fileGenerator";
 
 export function Uniform() {
+    const [numberOfValues, setNumberOfValues] = useState(10);
     const [form] = Form.useForm();
+
 
     const layout = {
         labelCol: {span: 8},
@@ -19,18 +23,18 @@ export function Uniform() {
     function onFinish(values: any) {
         const {a, b} = values;
 
-        const result = parseInt(a) + (parseInt(b) - parseInt(a)) * Math.random();
-        console.log(result)
+        const fileData = [JSON.stringify(getUniformData(parseInt(a), parseInt(b)), null, 2)];
 
-        const blob = new Blob([JSON.stringify(result, null, 2), '\n' + JSON.stringify(result, null, 2)], {
-            type: "application/json",
-        });
 
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = "user-info.txt";
-        link.href = url;
-        link.click();
+        for (let i = 0; i < numberOfValues - 1; i++) {
+            fileData.push('\n' + JSON.stringify(getUniformData(parseInt(a), parseInt(b)), null, 2))
+        }
+
+        generateFile(fileData, 'uniform-data.txt');
+    }
+
+    function getUniformData(a: number, b: number) {
+        return a + (b - a) * Math.random();
     }
 
     return (
