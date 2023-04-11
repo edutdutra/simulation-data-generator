@@ -1,22 +1,23 @@
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, InputNumber} from "antd";
 import {generateFile} from "../utils/fileGenerator";
 import {useState} from "react";
 
 export function Normal() {
-    const [numberOfValues, setNumberOfValues] = useState(10);
+    const [numberOfValues, setNumberOfValues] = useState(500);
     const [form] = Form.useForm();
 
     const layout = {
-        labelCol: {span: 8},
-        wrapperCol: {span: 16},
+        labelCol: {span: 6},
+        wrapperCol: {span: 12},
     };
 
     const tailLayout = {
-        wrapperCol: {offset: 16},
+        wrapperCol: {offset: 12},
     };
 
     function onReset() {
         form.resetFields();
+        setNumberOfValues(500)
     }
 
     function onFinish(values: any) {
@@ -29,7 +30,7 @@ export function Normal() {
             fileData.push('\n' + JSON.stringify(getNormalData(parseInt(average), parseInt(variance)), null, 2))
         }
 
-        generateFile(fileData, 'normal-data.txt');
+        generateFile(fileData, 'normal-data.dft');
     }
 
     function getNormalData(average: number, variance: number) {
@@ -37,6 +38,10 @@ export function Normal() {
         const z = Math.sqrt(-2 * Math.log(random * Math.sin(2 * Math.PI * random)))
 
         return average + (variance * z);
+    }
+
+    function handleChangeNumberOfValues(newValue: any) {
+        setNumberOfValues(newValue)
     }
 
     return (
@@ -56,12 +61,16 @@ export function Normal() {
                     <Input type="number"/>
                 </Form.Item>
 
-                <Form.Item {...tailLayout} style={{}}>
+                <Form.Item name="amount" label="Quantidade" initialValue={500}>
+                    <InputNumber min={1} value={numberOfValues} onChange={handleChangeNumberOfValues} />
+                </Form.Item>
+
+                <Form.Item {...tailLayout}>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        Enviar
                     </Button>
                     <Button htmlType="button" onClick={onReset} style={{marginLeft: 20}}>
-                        Reset
+                        Limpar
                     </Button>
                 </Form.Item>
             </Form>
