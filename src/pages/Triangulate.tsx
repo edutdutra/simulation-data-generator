@@ -46,7 +46,7 @@ export function Triangulate() {
         } else {
             const sqrtValue = (1 - u) * (b - c) * (b - a);
 
-            return a + Math.sqrt(sqrtValue);
+            return b - Math.sqrt(sqrtValue);
         }
     }
 
