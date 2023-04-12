@@ -23,19 +23,18 @@ export function Normal() {
     function onFinish(values: any) {
         const {average, variance} = values;
 
-        const fileData = [JSON.stringify(getNormalData(parseInt(average), parseInt(variance)), null, 2)];
+        const fileData = [JSON.stringify(getNormalData(parseInt(average), parseFloat(variance)), null, 2)];
 
 
         for (let i = 0; i < numberOfValues - 1; i++) {
-            fileData.push('\n' + JSON.stringify(getNormalData(parseInt(average), parseInt(variance)), null, 2))
+            fileData.push('\n' + JSON.stringify(getNormalData(parseInt(average), parseFloat(variance)), null, 2))
         }
 
         generateFile(fileData, 'normal-data.dft');
     }
 
     function getNormalData(average: number, variance: number) {
-        const random = Math.random();
-        const z = Math.sqrt(-2 * Math.log(random * Math.sin(2 * Math.PI * random)))
+        const z = Math.sqrt(-2 * Math.log(Math.random())) * Math.sin(2 * Math.PI * Math.random())
 
         return average + (variance * z);
     }
