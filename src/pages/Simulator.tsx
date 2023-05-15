@@ -1,16 +1,8 @@
-import {Button, Form, Input, InputNumber} from "antd";
+import {Button, Form, Input} from "antd";
+import {layout, tailLayout} from "../utils/formLayout";
 
 export function Simulator() {
     const [form] = Form.useForm();
-
-    const layout = {
-        labelCol: {span: 6},
-        wrapperCol: {span: 12},
-    };
-
-    const tailLayout = {
-        wrapperCol: {offset: 12},
-    };
 
     function onReset() {
         form.resetFields();
