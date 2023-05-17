@@ -1,6 +1,7 @@
 import {Button, Form, Input, InputNumber} from "antd";
 import {generateFile} from "../utils/fileGenerator";
 import {useState} from "react";
+import {getTriangulateData} from "../utils/distributions";
 
 export function Triangulate() {
     const [numberOfValues, setNumberOfValues] = useState(500);
@@ -25,29 +26,14 @@ export function Triangulate() {
         const b = parseInt(values.b);
         const c = parseInt(values.c);
 
-        const fileData = [JSON.stringify(getExponentialData(a, b, c), null, 2)];
+        const fileData = [JSON.stringify(getTriangulateData(a, b, c), null, 2)];
 
 
         for (let i = 0; i < numberOfValues - 1; i++) {
-            fileData.push('\n' + JSON.stringify(getExponentialData(a, b, c), null, 2))
+            fileData.push('\n' + JSON.stringify(getTriangulateData(a, b, c), null, 2))
         }
 
         generateFile(fileData, 'triangulate-data.dft');
-    }
-
-    function getExponentialData(a: number, b: number, c: number,) {
-        const u = Math.random();
-        const conditionValue = (c - a) / (b - a);
-
-        if (u < conditionValue) {
-            const sqrtValue = u * (c - a) * (b - a);
-
-            return a + Math.sqrt(sqrtValue);
-        } else {
-            const sqrtValue = (1 - u) * (b - c) * (b - a);
-
-            return b - Math.sqrt(sqrtValue);
-        }
     }
 
     function handleChangeNumberOfValues(newValue: any) {

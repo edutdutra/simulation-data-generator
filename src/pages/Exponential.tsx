@@ -1,6 +1,7 @@
 import {Button, Form, Input, InputNumber} from "antd";
 import {useState} from "react";
 import {generateFile} from "../utils/fileGenerator";
+import {getExponentialData} from "../utils/distributions";
 
 export function Exponential() {
     const [numberOfValues, setNumberOfValues] = useState(500);
@@ -32,10 +33,6 @@ export function Exponential() {
         }
 
         generateFile(fileData, 'exponential-data.dft');
-    }
-
-    function getExponentialData(average: number) {
-        return -average * Math.log(Math.random());
     }
 
     function handleChangeNumberOfValues(newValue: any) {

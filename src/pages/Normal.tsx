@@ -1,6 +1,7 @@
 import {Button, Form, Input, InputNumber} from "antd";
 import {generateFile} from "../utils/fileGenerator";
 import {useState} from "react";
+import {getNormalData} from "../utils/distributions";
 
 export function Normal() {
     const [numberOfValues, setNumberOfValues] = useState(500);
@@ -31,12 +32,6 @@ export function Normal() {
         }
 
         generateFile(fileData, 'normal-data.dft');
-    }
-
-    function getNormalData(average: number, variance: number) {
-        const z = Math.sqrt(-2 * Math.log(Math.random())) * Math.sin(2 * Math.PI * Math.random())
-
-        return average + (variance * z);
     }
 
     function handleChangeNumberOfValues(newValue: any) {

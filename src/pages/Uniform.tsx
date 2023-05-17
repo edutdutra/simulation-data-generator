@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Button, Form, Input, InputNumber} from "antd";
 import {generateFile} from "../utils/fileGenerator";
+import {getUniformData} from "../utils/distributions";
 
 export function Uniform() {
     const [numberOfValues, setNumberOfValues] = useState(500);
@@ -32,10 +33,6 @@ export function Uniform() {
         }
 
         generateFile(fileData, 'uniform-data.dft');
-    }
-
-    function getUniformData(a: number, b: number) {
-        return a + (b - a) * Math.random();
     }
 
     function handleChangeNumberOfValues(newValue: any) {
