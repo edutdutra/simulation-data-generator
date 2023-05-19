@@ -32,18 +32,18 @@ export function Simulator() {
     const [tempo_atendimento, setTempo_atendimento] = useState(0);
 
 
-    const fila_espera: Entity[] = []
-    const entidades: Entity[] = []
+    let fila_espera: Entity[] = []
+    let entidades: Entity[] = []
 
     // arrays com tamanhos setados
-    const atendimento: number[] = [];
-    const atendimento_entidades: Entity[] = [];
-    const numero_entidades_fila_cada_tempo: number[] = [];
-    const taxa_media_ocupacao_servidor: number[] = [];
-    const numero_entidades_cada_passo: number[] = [];
+    let atendimento: number[] = [];
+    let atendimento_entidades: Entity[] = [];
+    let numero_entidades_fila_cada_tempo: number[] = [];
+    let taxa_media_ocupacao_servidor: number[] = [];
+    let numero_entidades_cada_passo: number[] = [];
 
     //Matriz - arrays com tamanhos setados
-    const taxa_ocupacao_servidor_cada_tempo: number[] = [];
+    let taxa_ocupacao_servidor_cada_tempo: number[] = [];
 
 
     let numero_medio_entidades_fila: number
@@ -178,7 +178,7 @@ export function Simulator() {
             if (atendimento_entidades[i] != null &&
                 atendimento[i] <= tempo_decorrido) {
                 atendimento_entidades[i].terminado = true;
-                atendimento_entidades[i] = null;
+                atendimento_entidades[i] = {} as Entity;
                 populacao_atual--;
             }
         }
@@ -229,7 +229,8 @@ export function Simulator() {
 
     function calcula_taxa_media_ocupacao_servidor() {
         for (let i = 0; i < taxa_media_ocupacao_servidor.length; i++) {
-            for (let j of taxa_ocupacao_servidor_cada_tempo[]) {
+
+            for (let j of taxa_ocupacao_servidor_cada_tempo[i]) {
                 taxa_media_ocupacao_servidor[i] += j;
             }
         }
@@ -321,6 +322,12 @@ export function Simulator() {
         for (let i = 0; i < capacidade_sistema; i++) {
             atendimento_entidades[i] = {} as Entity;
         }
+
+        for (let i = 0; i < capacidade_sistema; i++) {
+            taxa_ocupacao_servidor_cada_tempo[i] = [];
+        }
+
+
 
         run();
     }
