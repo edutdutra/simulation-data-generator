@@ -11,25 +11,25 @@ export function Simulator() {
 
     const [distribution, setDistribution] = useState('');
 
-    const [a, setA] = useState<number>();
-    const [b, setB] = useState<number>();
-    const [c, setC] = useState<number>();
-    const [average, setAverage] = useState<number>();
-    const [variance, setVariance] = useState<number>();
+    const [a, setA] = useState<number>(0);
+    const [b, setB] = useState<number>(0);
+    const [c, setC] = useState<number>(0);
+    const [average, setAverage] = useState<number>(0);
+    const [variance, setVariance] = useState<number>(0);
 
 
     const [populacao, setPopulacao] = useState();
     // const [populacao_atual, setPopulacao_atual] = useState();
     let populacao_atual: number
-    const [capacidade_sistema, setCapacidade_sistema] = useState();
-    const [tempo_simulacao, setTempo_simulacao] = useState();
-    const [limite_fila, setLimite_fila] = useState();
+    const [capacidade_sistema, setCapacidade_sistema] = useState(0);
+    const [tempo_simulacao, setTempo_simulacao] = useState(0);
+    const [limite_fila, setLimite_fila] = useState(0);
 
     let tempo_decorrido: number = 0;
     let tempo_proxima_chegada: number = 0
 
-    const [tempo_chegada, setTempo_chegada] = useState();
-    const [tempo_atendimento, setTempo_atendimento] = useState();
+    const [tempo_chegada, setTempo_chegada] = useState(0);
+    const [tempo_atendimento, setTempo_atendimento] = useState(0);
 
 
     const fila_espera: Entity[] = []
@@ -229,7 +229,7 @@ export function Simulator() {
 
     function calcula_taxa_media_ocupacao_servidor() {
         for (let i = 0; i < taxa_media_ocupacao_servidor.length; i++) {
-            for (let j of taxa_ocupacao_servidor_cada_tempo[i]) {
+            for (let j of taxa_ocupacao_servidor_cada_tempo[]) {
                 taxa_media_ocupacao_servidor[i] += j;
             }
         }
@@ -319,7 +319,7 @@ export function Simulator() {
 
     function onFinish() {
         for (let i = 0; i < capacidade_sistema; i++) {
-            atendimento_entidades[i] = null;
+            atendimento_entidades[i] = {} as Entity;
         }
 
         run();
