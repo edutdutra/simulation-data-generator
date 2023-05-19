@@ -158,11 +158,11 @@ export function Simulator() {
         numero_entidades_fila_cada_tempo[tempo_decorrido] = fila_espera.length;
 
         for (let i = 0; i < taxa_ocupacao_servidor_cada_tempo.length; i++) {
-            if (atendimento[i] > tempo_decorrido) {
-                taxa_ocupacao_servidor_cada_tempo[i][tempo_decorrido] = 1;
-            } else {
-                taxa_ocupacao_servidor_cada_tempo[i][tempo_decorrido] = 0;
-            }
+            // if (atendimento[i] > tempo_decorrido) {
+            //     taxa_ocupacao_servidor_cada_tempo[i][tempo_decorrido] = 1;
+            // } else {
+            //     taxa_ocupacao_servidor_cada_tempo[i][tempo_decorrido] = 0;
+            // }
         }
 
         for (let e of entidades) {
@@ -230,9 +230,9 @@ export function Simulator() {
     function calcula_taxa_media_ocupacao_servidor() {
         for (let i = 0; i < taxa_media_ocupacao_servidor.length; i++) {
 
-            for (let j of taxa_ocupacao_servidor_cada_tempo[i]) {
-                taxa_media_ocupacao_servidor[i] += j;
-            }
+            // for (let j of taxa_ocupacao_servidor_cada_tempo[i]) {
+            //     taxa_media_ocupacao_servidor[i] += j;
+            // }
         }
 
         for (let i = 0; i < taxa_media_ocupacao_servidor.length; i++) {
@@ -323,9 +323,9 @@ export function Simulator() {
             atendimento_entidades[i] = {} as Entity;
         }
 
-        for (let i = 0; i < capacidade_sistema; i++) {
-            taxa_ocupacao_servidor_cada_tempo[i] = [];
-        }
+        // for (let i = 0; i < capacidade_sistema; i++) {
+        //     taxa_ocupacao_servidor_cada_tempo[i] = [];
+        // }
 
 
 
