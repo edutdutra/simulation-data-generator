@@ -1,5 +1,5 @@
 export interface Entity {
-    queueTime: number
-    systemTime: number
-    isDone: boolean
+    tempo_fila: number
+    tempo_sistema: number
+    terminado: boolean
 }
